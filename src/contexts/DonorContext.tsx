@@ -6,29 +6,19 @@ import {
   useEffect,
 } from "react";
 import { UserContext } from "./UserContext";
-import { IUser } from "../interfaces/users.interface";
 import { DonationContext } from "./DonationContext";
 import api from "../services/api";
-import { render } from "@testing-library/react";
 import { IDonation } from "../interfaces/donations.interface";
-import { ConstructionOutlined } from "@mui/icons-material";
+import {
+  IAllDataDonation,
+  IUpdateDonation,
+} from "../interfaces/donations.interface";
 
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 interface IDonorContextProviderProps {
   children: ReactNode;
-}
-
-export interface IAllDataDonation {
-  food: string;
-  quantity: string;
-  expiration: string;
-  classification: string;
-  available: boolean;
-  userId: number;
-  id: number;
-  user: IUser;
 }
 
 interface IDonorContextData {
@@ -38,12 +28,6 @@ interface IDonorContextData {
   setSearched: React.Dispatch<React.SetStateAction<string>>;
   onSubmitUpdateDonation: (data: IUpdateDonation) => Promise<void>;
   onClickDeleteDonation: (id: number) => Promise<void>;
-}
-
-export interface IUpdateDonation {
-  food: string;
-  quantity: string;
-  id: number;
 }
 
 export const DonorContext = createContext<IDonorContextData>(

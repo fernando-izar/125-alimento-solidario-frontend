@@ -1,5 +1,4 @@
-import { ReactNode } from "react";
-import { SubmitHandler } from "react-hook-form";
+import { IUser } from "./users.interface";
 
 export interface IDonation {
   food: string;
@@ -11,15 +10,19 @@ export interface IDonation {
   id?: number;
 }
 
-export interface IDonationProviderProps {
-  children: ReactNode;
+export interface IAllDataDonation {
+  food: string;
+  quantity: string;
+  expiration: string;
+  classification: string;
+  available: boolean;
+  userId: number;
+  id: number;
+  user: IUser;
 }
 
-export interface IDonationProviderData {
-  donation: IDonation | null;
-  setDonation: React.Dispatch<React.SetStateAction<IDonation | null>>;
-  isMakeDonationModal: boolean;
-  setIsMakeDonationModal: React.Dispatch<React.SetStateAction<boolean>>;
-  onSubmitMakeDonation: SubmitHandler<IDonation>;
-  chooseImg: (value: string) => string;
+export interface IUpdateDonation {
+  food: string;
+  quantity: string;
+  id: number;
 }

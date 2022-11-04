@@ -1,5 +1,9 @@
 import { useContext } from "react";
-import { DonorContext, IAllDataDonation } from "../../contexts/DonorContext";
+import { DonorContext } from "../../contexts/DonorContext";
+import {
+  IAllDataDonation,
+  IUpdateDonation,
+} from "../../interfaces/donations.interface";
 import { FlipCard } from "./styles";
 import { DonationContext } from "../../contexts/DonationContext";
 import { UserContext } from "../../contexts/UserContext";
@@ -7,7 +11,6 @@ import { ReservationContext } from "../../contexts/ReservationContext";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schemaBackCard } from "../../validators/schemas";
-import { IUpdateDonation } from "../../contexts/DonorContext";
 import { Button } from "@material-ui/core";
 import { TextField } from "@mui/material";
 import { ConstructionOutlined } from "@mui/icons-material";

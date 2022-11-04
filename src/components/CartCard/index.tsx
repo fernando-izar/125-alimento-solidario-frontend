@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { IAllDataDonation } from "../../contexts/DonorContext";
+import { IAllDataDonation } from "../../interfaces/donations.interface";
 import { Container } from "./styles";
 import { DonationContext } from "../../contexts/DonationContext";
 import { UserContext } from "../../contexts/UserContext";

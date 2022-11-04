@@ -1,5 +1,3 @@
-import { ReactNode } from "react";
-
 export interface IUser {
   email?: string;
   password?: string;
@@ -13,34 +11,6 @@ export interface IUser {
   contact: string;
   type: string;
   id: number;
-}
-
-export interface IUserProviderData {
-  user: IUser | null;
-}
-
-export interface ILoginDataProps {
-  email: string;
-  password: string;
-}
-
-export interface ILoginDataResponse {
-  user: IUser;
-  accessToken: string;
-}
-
-export interface IUserContextProviderProps {
-  children: ReactNode;
-}
-
-export interface IContextProviderProps {
-  loginData: (data: ILoginDataProps) => void;
-  toRegister: () => void;
-  user: IUser | null;
-  signUp: (data: IRegisterForm) => void;
-  loading: boolean;
-  logout: () => void;
-  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export interface IRegisterForm {

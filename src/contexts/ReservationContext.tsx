@@ -1,4 +1,3 @@
-import { ConstructionOutlined } from "@mui/icons-material";
 import {
   ReactNode,
   createContext,
@@ -12,27 +11,14 @@ import { IUser } from "../interfaces/users.interface";
 import { DonationContext } from "./DonationContext";
 import { IDonation } from "../interfaces/donations.interface";
 import { toast } from "react-toastify";
+import {
+  IReservation,
+  IReservationWithUsers,
+} from "../interfaces/reservations.interface";
 import "react-toastify/dist/ReactToastify.css";
 
 interface IReservationProviderProps {
   children: ReactNode;
-}
-
-export interface IReservation {
-  food: string;
-  quantity: string;
-  expiration: string;
-  classification: string;
-  available: boolean;
-  userId: number;
-  id: number;
-  user: IUser;
-}
-
-export interface IReservationWithUsers {
-  userId: number;
-  id?: number;
-  donation: IReservation;
 }
 
 export interface IReservationContextData {

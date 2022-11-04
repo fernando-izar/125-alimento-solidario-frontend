@@ -3,15 +3,25 @@ import { ReactNode, createContext, useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import api from "../services/api";
+import { IUser, IRegisterForm } from "../interfaces/users.interface";
 import {
-  IUser,
-  IUserProviderData,
   ILoginDataProps,
   ILoginDataResponse,
-  IContextProviderProps,
-  IRegisterForm,
-  IUserContextProviderProps,
-} from "../interfaces/users.interface";
+} from "../interfaces/login.interface";
+
+export interface IUserContextProviderProps {
+  children: ReactNode;
+}
+
+export interface IContextProviderProps {
+  loginData: (data: ILoginDataProps) => void;
+  toRegister: () => void;
+  user: IUser | null;
+  signUp: (data: IRegisterForm) => void;
+  loading: boolean;
+  logout: () => void;
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
 export const UserContext = createContext<IContextProviderProps>(
   {} as IContextProviderProps

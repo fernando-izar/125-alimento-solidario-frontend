@@ -1,21 +1,18 @@
 import { useContext } from "react";
 import { UserContext } from "../../contexts/UserContext";
-import { ILoginDataProps } from "../../interfaces/users.interface";
+import { ILoginDataProps } from "../../interfaces/login.interface";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schemaLogin } from "../../validators/schemas";
 
 import { Header } from "../../components/Header";
 
-import { Button } from "@material-ui/core";
 import { AccountCircle, Visibility, VisibilityOff } from "@mui/icons-material";
 import {
   Input,
   InputLabel,
   FormControl,
   IconButton,
-  InputAdornment,
-  OutlinedInput,
   TextField,
   FormHelperText,
 } from "@mui/material";
