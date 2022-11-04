@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { DonationContext } from "../../contexts/DonationContext";
 import { useForm, Controller } from "react-hook-form";
-import { IDonation } from "../../contexts/DonationContext";
+import { IDonation } from "../../interfaces/donations.interface";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schemaDonation } from "../../validators/schemas";
 import { Button } from "@material-ui/core";
@@ -45,7 +45,7 @@ export const FormMakeDonationModal = () => {
           error={!!errors.food?.message}
           helperText={errors.food?.message}
         />
-        
+
         <TextField
           {...register("quantity")}
           label="Qual a quantidade que você está doando?"
@@ -55,7 +55,7 @@ export const FormMakeDonationModal = () => {
           error={!!errors.quantity?.message}
           helperText={errors.quantity?.message}
         />
-        
+
         {/* <TextField
           {...register("expiration")}
           label="Qual a validade do produto? (DD/MM/AAAA)"
@@ -118,7 +118,6 @@ export const FormMakeDonationModal = () => {
                 )}
                 {...restField}
               />
-              
             </LocalizationProvider>
           )}
         />

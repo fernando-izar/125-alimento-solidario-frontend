@@ -5,11 +5,12 @@ import {
   useContext,
   useEffect,
 } from "react";
-import { IUser, UserContext } from "./UserContext";
+import { UserContext } from "./UserContext";
+import { IUser } from "../interfaces/users.interface";
 import { DonationContext } from "./DonationContext";
 import api from "../services/api";
 import { render } from "@testing-library/react";
-import { IDonation } from "./DonationContext";
+import { IDonation } from "../interfaces/donations.interface";
 import { ConstructionOutlined } from "@mui/icons-material";
 
 import { toast } from "react-toastify";

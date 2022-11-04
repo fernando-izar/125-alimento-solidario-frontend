@@ -21,7 +21,7 @@ import { Container } from "./styles";
 import { useContext } from "react";
 import { UserContext } from "../../contexts/UserContext";
 
-import { IRegisterForm } from "../../contexts/UserContext";
+import { IRegisterForm } from "../../interfaces/users.interface";
 
 import { FieldError, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -114,7 +114,6 @@ export const Register = () => {
           {window.innerWidth > 540 ? (
             <>
               <div className="divRadio">
-
                 <RadioGroup
                   row
                   aria-labelledby="demo-row-radio-buttons-group-label"
@@ -123,13 +122,13 @@ export const Register = () => {
                 >
                   <FormControlLabel
                     value="donor"
-                    control={<Radio size="small"/>}
+                    control={<Radio size="small" />}
                     label="Doador"
                     {...register("type")}
                   />
                   <FormControlLabel
                     value="charity"
-                    control={<Radio size="small"/>}
+                    control={<Radio size="small" />}
                     label="Donatário"
                     {...register("type")}
                   />
@@ -143,7 +142,7 @@ export const Register = () => {
                   id="outlined-start-adornment-1"
                   size="small"
                   variant="standard"
-                  sx={{ m: 1, width: "35ch", height: "6ch" }}                 
+                  sx={{ m: 1, width: "35ch", height: "6ch" }}
                   error={!!errors.name?.message}
                   helperText={errors.name?.message}
                   {...register("name")}
@@ -170,7 +169,7 @@ export const Register = () => {
                   helperText={errors.address?.message}
                   {...register("address")}
                 />
-                
+
                 <TextField
                   label="Complemento"
                   id="outlined-start-adornment-4"
@@ -181,7 +180,7 @@ export const Register = () => {
                   helperText={errors.complement?.message}
                   {...register("complement")}
                 />
-                
+
                 <TextField
                   label="Cidade"
                   id="outlined-start-adornment-5"
@@ -192,7 +191,7 @@ export const Register = () => {
                   helperText={errors.city?.message}
                   {...register("city")}
                 />
-                
+
                 <TextField
                   label="Estado"
                   id="outlined-start-adornment-6"
@@ -203,7 +202,6 @@ export const Register = () => {
                   helperText={errors.state?.message}
                   {...register("state")}
                 />
-                
               </div>
               <div className="divFormFields2">
                 <TextField
@@ -216,7 +214,7 @@ export const Register = () => {
                   helperText={errors.responsible?.message}
                   {...register("responsible")}
                 />
-                
+
                 <TextField
                   label="Contato"
                   id="outlined-start-adornment-8"
@@ -227,7 +225,7 @@ export const Register = () => {
                   helperText={errors.contact?.message}
                   {...register("contact")}
                 />
-                
+
                 <TextField
                   label="E-mail"
                   id="outlined-basic-1"
@@ -246,14 +244,11 @@ export const Register = () => {
                   sx={{ m: 1, width: "35ch", height: "6ch" }}
                   variant="standard"
                 >
-                  <InputLabel htmlFor="password-1">
-                    Senha
-                  </InputLabel>
+                  <InputLabel htmlFor="password-1">Senha</InputLabel>
                   <Input
                     id="password-1"
                     type={values.showPassword ? "text" : "password"}
                     value={values.password}
-                
                     endAdornment={
                       <InputAdornment position="end">
                         <IconButton
@@ -275,7 +270,7 @@ export const Register = () => {
                     error={!!errors.password?.message}
                   />
                   <FormHelperText error id="password-error-1">
-                      {errors.password?.message}
+                    {errors.password?.message}
                   </FormHelperText>
                 </FormControl>
 
@@ -310,16 +305,14 @@ export const Register = () => {
                         </IconButton>
                       </InputAdornment>
                     }
-                    
                     {...register("passwordConfirmation")}
                     onChange={handleChangeConfirmation("passwordConfirmation")}
-                  error={!!errors.passwordConfirmation?.message}
-                />
-                <FormHelperText error id="password-confirmation-error-1">
+                    error={!!errors.passwordConfirmation?.message}
+                  />
+                  <FormHelperText error id="password-confirmation-error-1">
                     {errors.passwordConfirmation?.message}
-                </FormHelperText>
-              </FormControl>
-
+                  </FormHelperText>
+                </FormControl>
               </div>
               <div className="divButtonRegister">
                 <ButtonLogin type="submit" onClick={() => handleSubmit}>
@@ -335,18 +328,16 @@ export const Register = () => {
                   aria-labelledby="demo-row-radio-buttons-group-label"
                   defaultValue=""
                   name="row-radio-buttons-group"
-                  
                 >
                   <FormControlLabel
                     value="donor"
-                    control={<Radio size="small"/>}
-                    
+                    control={<Radio size="small" />}
                     label="Doador"
                     {...register("type")}
                   />
                   <FormControlLabel
                     value="charity"
-                    control={<Radio size="small"/>}
+                    control={<Radio size="small" />}
                     label="Donatário"
                     {...register("type")}
                   />
@@ -387,7 +378,7 @@ export const Register = () => {
                   helperText={errors.address?.message}
                   {...register("address")}
                 />
-                
+
                 <TextField
                   label="Complemento"
                   id="outlined-start-adornment-12"
@@ -484,15 +475,13 @@ export const Register = () => {
                         </IconButton>
                       </InputAdornment>
                     }
-                    
                     {...register("password")}
                     onChange={handleChange("password")}
                     error={!!errors.password?.message}
-                    />
-                    <FormHelperText error id="password-error-2">
-                        {errors.password?.message}
-                    </FormHelperText>      
-                  
+                  />
+                  <FormHelperText error id="password-error-2">
+                    {errors.password?.message}
+                  </FormHelperText>
                 </FormControl>
 
                 <FormControl
@@ -528,13 +517,12 @@ export const Register = () => {
                     }
                     {...register("passwordConfirmation")}
                     onChange={handleChangeConfirmation("passwordConfirmation")}
-                  error={!!errors.passwordConfirmation?.message}
-                />
-                <FormHelperText error id="password-confirmation-error-2">
+                    error={!!errors.passwordConfirmation?.message}
+                  />
+                  <FormHelperText error id="password-confirmation-error-2">
                     {errors.passwordConfirmation?.message}
-                </FormHelperText>
-              </FormControl>
-
+                  </FormHelperText>
+                </FormControl>
               </div>
               <div className="divButtonRegister">
                 <ButtonLogin type="submit" onClick={() => handleSubmit}>
