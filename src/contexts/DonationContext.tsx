@@ -40,7 +40,6 @@ export const DonationProvider = ({ children }: IDonationProviderProps) => {
       api.defaults.headers.common.authorization = `Bearer ${token}`;
 
       data.available = true;
-      data.userId = user?.id;
       const { data: responseData } = await api.post("donations", data);
       setDonation(responseData);
       setIsMakeDonationModal(false);

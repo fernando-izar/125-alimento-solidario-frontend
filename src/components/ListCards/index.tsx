@@ -19,7 +19,6 @@ export const ListCards = () => {
                 expiration={element.expiration}
                 classification={element.classification}
                 available={element.available}
-                userId={element.userId}
                 id={element.id}
                 user={element.user}
               ></Card>

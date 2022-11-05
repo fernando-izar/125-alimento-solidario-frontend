@@ -1,21 +1,15 @@
-import {
-  FormControlLabel,
-  FormLabel,
-  Radio,
-  RadioGroup,
-} from "@material-ui/core";
+import { FormControlLabel, Radio, RadioGroup } from "@material-ui/core";
 import { AccountCircle, Visibility, VisibilityOff } from "@mui/icons-material";
 import {
   InputLabel,
   FormControl,
   IconButton,
   InputAdornment,
-  OutlinedInput,
   TextField,
   Input,
   FormHelperText,
 } from "@mui/material";
-import { ChangeEvent, ReactNode, useState } from "react";
+import { ChangeEvent, useState } from "react";
 
 import { Container } from "./styles";
 import { useContext } from "react";
@@ -23,7 +17,7 @@ import { UserContext } from "../../contexts/UserContext";
 
 import { IRegisterForm } from "../../interfaces/users.interface";
 
-import { FieldError, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schemaRegister } from "../../validators/schemas";
 import { TitlesH1 } from "../../components/Titles/styles";
@@ -154,9 +148,9 @@ export const Register = () => {
                   size="small"
                   variant="standard"
                   sx={{ m: 1, width: "35ch", height: "6ch" }}
-                  error={!!errors["cnpj/cpf"]?.message}
-                  helperText={errors["cnpj/cpf"]?.message}
-                  {...register("cnpj/cpf")}
+                  error={!!errors.cnpj_cpf?.message}
+                  helperText={errors.cnpj_cpf?.message}
+                  {...register("cnpj_cpf")}
                 />
 
                 <TextField
@@ -165,8 +159,8 @@ export const Register = () => {
                   size="small"
                   variant="standard"
                   sx={{ m: 1, width: "35ch", height: "6ch" }}
-                  error={!!errors.address?.message}
-                  helperText={errors.address?.message}
+                  error={!!errors.address?.address?.message}
+                  helperText={errors.address?.address?.message}
                   {...register("address")}
                 />
 
@@ -176,9 +170,9 @@ export const Register = () => {
                   size="small"
                   variant="standard"
                   sx={{ m: 1, width: "35ch", height: "6ch" }}
-                  error={!!errors.complement?.message}
-                  helperText={errors.complement?.message}
-                  {...register("complement")}
+                  error={!!errors.address?.complement?.message}
+                  helperText={errors.address?.complement?.message}
+                  {...register("address.complement")}
                 />
 
                 <TextField
@@ -187,9 +181,9 @@ export const Register = () => {
                   size="small"
                   variant="standard"
                   sx={{ m: 1, width: "35ch", height: "6ch" }}
-                  error={!!errors.city?.message}
-                  helperText={errors.city?.message}
-                  {...register("city")}
+                  error={!!errors.address?.city?.message}
+                  helperText={errors.address?.city?.message}
+                  {...register("address.city")}
                 />
 
                 <TextField
@@ -198,9 +192,9 @@ export const Register = () => {
                   size="small"
                   variant="standard"
                   sx={{ m: 1, width: "35ch", height: "4ch" }}
-                  error={!!errors.state?.message}
-                  helperText={errors.state?.message}
-                  {...register("state")}
+                  error={!!errors.address?.state?.message}
+                  helperText={errors.address?.state?.message}
+                  {...register("address.state")}
                 />
               </div>
               <div className="divFormFields2">
@@ -363,9 +357,9 @@ export const Register = () => {
                   size="small"
                   variant="standard"
                   sx={{ m: 1, width: "35ch", height: "6ch" }}
-                  error={!!errors["cnpj/cpf"]?.message}
-                  helperText={errors["cnpj/cpf"]?.message}
-                  {...register("cnpj/cpf")}
+                  error={!!errors.cnpj_cpf?.message}
+                  helperText={errors.cnpj_cpf?.message}
+                  {...register("cnpj_cpf")}
                 />
 
                 <TextField
@@ -385,9 +379,9 @@ export const Register = () => {
                   size="small"
                   variant="standard"
                   sx={{ m: 1, width: "35ch", height: "6ch" }}
-                  error={!!errors.complement?.message}
-                  helperText={errors.complement?.message}
-                  {...register("complement")}
+                  error={!!errors.address?.complement?.message}
+                  helperText={errors.address?.complement?.message}
+                  {...register("address.complement")}
                 />
 
                 <TextField
@@ -396,9 +390,9 @@ export const Register = () => {
                   size="small"
                   variant="standard"
                   sx={{ m: 1, width: "35ch", height: "6ch" }}
-                  error={!!errors.city?.message}
-                  helperText={errors.city?.message}
-                  {...register("city")}
+                  error={!!errors.address?.city?.message}
+                  helperText={errors.address?.city?.message}
+                  {...register("address.city")}
                 />
 
                 <TextField
@@ -407,9 +401,9 @@ export const Register = () => {
                   size="small"
                   variant="standard"
                   sx={{ m: 1, width: "35ch", height: "6ch" }}
-                  error={!!errors.state?.message}
-                  helperText={errors.state?.message}
-                  {...register("state")}
+                  error={!!errors.address?.state?.message}
+                  helperText={errors.address?.state?.message}
+                  {...register("address.state")}
                 />
 
                 <TextField

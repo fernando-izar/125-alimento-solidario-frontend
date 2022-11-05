@@ -7,13 +7,13 @@ import {
 } from "react";
 import api from "../services/api";
 import { UserContext } from "./UserContext";
-import { IUser } from "../interfaces/users.interface";
+// import { IUser } from "../interfaces/users.interface";
 import { DonationContext } from "./DonationContext";
 import { IDonation } from "../interfaces/donations.interface";
 import { toast } from "react-toastify";
 import {
   IReservation,
-  IReservationWithUsers,
+  // IReservationWithUsers,
 } from "../interfaces/reservations.interface";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -22,8 +22,8 @@ interface IReservationProviderProps {
 }
 
 export interface IReservationContextData {
-  onClickReserve: (id: number) => Promise<void>;
-  listReservations: IReservationWithUsers[];
+  onClickReserve: (id: string) => Promise<void>;
+  listReservations: IReservation[];
 }
 
 export const ReservationContext = createContext({} as IReservationContextData);
@@ -32,32 +32,40 @@ export const ReservationProvider = ({
   children,
 }: IReservationProviderProps) => {
   const [reservation, setReservation] = useState<IReservation | null>(null);
-  const [listReservations, setListReservations] = useState<
-    IReservationWithUsers[]
-  >([]);
-  const { user } = useContext(UserContext);
-  const { donation, setDonation } = useContext(DonationContext);
+  const [listReservations, setListReservations] = useState<IReservation[]>([]);
+  // const { user } = useContext(UserContext);
+  // const { donation, setDonation } = useContext(DonationContext);
+  const { setDonation } = useContext(DonationContext);
 
-  const onClickReserve = async (id: number) => {
+  const onClickReserve = async (id: string) => {
     try {
+      //update donations -> available to false
       await api.patch(`donations/${id}`, { available: false });
 
-      const { data: dataReservation } = await api.get<IReservation>(
-        `/donations/${id}?_expand=user`
-      );
-      setReservation(dataReservation);
+      //get donation and setReservations with this values
+      // const { data: dataReservation } = await api.get<IReservation>(
+      //   `/donations/${id}?_expand=user`
+      // );
+
+      // const { data :dataReservation } = await api.get<IReservation>(
+      //   `/reservations/${id}`)
+
+      // setReservation(dataReservation);
       const token = localStorage.getItem("@userToken");
       api.defaults.headers.common.authorization = `Bearer ${token}`;
 
-      const data = {
-        userId: user?.id,
-        donation: dataReservation,
-      };
+      // const data = {
+      //   userId: user?.id,
+      //   donation: dataReservation,
+      // };
 
-      await api.post(`reservations`, data);
+      const { data: dataReservation } = await api.post<IReservation>(
+        `reservations/${id}`
+      );
+      setReservation(dataReservation);
 
-      const { data: reservByUsers } = await api.get<IReservationWithUsers[]>(
-        `reservations`
+      const { data: reservByUsers } = await api.get<IReservation[]>(
+        `reservations/user`
       );
 
       setListReservations(reservByUsers);
@@ -75,8 +83,8 @@ export const ReservationProvider = ({
   useEffect(() => {
     const loadListReservations = async () => {
       try {
-        const { data: reservByUsers } = await api.get<IReservationWithUsers[]>(
-          `reservations`
+        const { data: reservByUsers } = await api.get<IReservation[]>(
+          `reservations/user`
         );
         setListReservations(reservByUsers);
       } catch (error) {
