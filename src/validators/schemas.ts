@@ -21,7 +21,7 @@ export const schemaRegister = yup.object().shape({
 
   email: yup.string().required("Adicione seu e-mail").email("E-mail inválido"),
 
-  "cnpj/cpf": yup.string().required("Adicione seu CNPJ ou seu CPF"),
+  cnpj_cpf: yup.string().required("Adicione seu CNPJ ou seu CPF"),
 
   address: yup.string().required("Adicione seu endereço"),
 

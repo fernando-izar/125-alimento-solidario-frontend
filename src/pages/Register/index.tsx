@@ -159,8 +159,8 @@ export const Register = () => {
                   size="small"
                   variant="standard"
                   sx={{ m: 1, width: "35ch", height: "6ch" }}
-                  error={!!errors.address?.address?.message}
-                  helperText={errors.address?.address?.message}
+                  error={!!errors.address?.message}
+                  helperText={errors.address?.message}
                   {...register("address")}
                 />
 
@@ -170,9 +170,9 @@ export const Register = () => {
                   size="small"
                   variant="standard"
                   sx={{ m: 1, width: "35ch", height: "6ch" }}
-                  error={!!errors.address?.complement?.message}
-                  helperText={errors.address?.complement?.message}
-                  {...register("address.complement")}
+                  error={!!errors.complement?.message}
+                  helperText={errors.complement?.message}
+                  {...register("complement")}
                 />
 
                 <TextField
@@ -181,9 +181,9 @@ export const Register = () => {
                   size="small"
                   variant="standard"
                   sx={{ m: 1, width: "35ch", height: "6ch" }}
-                  error={!!errors.address?.city?.message}
-                  helperText={errors.address?.city?.message}
-                  {...register("address.city")}
+                  error={!!errors.city?.message}
+                  helperText={errors.city?.message}
+                  {...register("city")}
                 />
 
                 <TextField
@@ -192,9 +192,9 @@ export const Register = () => {
                   size="small"
                   variant="standard"
                   sx={{ m: 1, width: "35ch", height: "4ch" }}
-                  error={!!errors.address?.state?.message}
-                  helperText={errors.address?.state?.message}
-                  {...register("address.state")}
+                  error={!!errors.state?.message}
+                  helperText={errors.state?.message}
+                  {...register("state")}
                 />
               </div>
               <div className="divFormFields2">
@@ -379,9 +379,9 @@ export const Register = () => {
                   size="small"
                   variant="standard"
                   sx={{ m: 1, width: "35ch", height: "6ch" }}
-                  error={!!errors.address?.complement?.message}
-                  helperText={errors.address?.complement?.message}
-                  {...register("address.complement")}
+                  error={!!errors.complement?.message}
+                  helperText={errors.complement?.message}
+                  {...register("complement")}
                 />
 
                 <TextField
@@ -390,9 +390,9 @@ export const Register = () => {
                   size="small"
                   variant="standard"
                   sx={{ m: 1, width: "35ch", height: "6ch" }}
-                  error={!!errors.address?.city?.message}
-                  helperText={errors.address?.city?.message}
-                  {...register("address.city")}
+                  error={!!errors.city?.message}
+                  helperText={errors.city?.message}
+                  {...register("city")}
                 />
 
                 <TextField
@@ -401,9 +401,9 @@ export const Register = () => {
                   size="small"
                   variant="standard"
                   sx={{ m: 1, width: "35ch", height: "6ch" }}
-                  error={!!errors.address?.state?.message}
-                  helperText={errors.address?.state?.message}
-                  {...register("address.state")}
+                  error={!!errors.state?.message}
+                  helperText={errors.state?.message}
+                  {...register("state")}
                 />
 
                 <TextField

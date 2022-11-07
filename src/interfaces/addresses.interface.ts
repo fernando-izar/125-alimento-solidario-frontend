@@ -3,7 +3,7 @@ export interface IAddress {
   complement: string;
   city: string;
   state: string;
-  zipCode: string;
+  zipCode?: string | null;
 }
 
 // export interface IAddressUpdate {

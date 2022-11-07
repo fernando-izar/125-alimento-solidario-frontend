@@ -7,5 +7,5 @@ export interface ILoginDataProps {
 
 export interface ILoginDataResponse {
   user: IUser;
-  accessToken: string;
+  token: string;
 }

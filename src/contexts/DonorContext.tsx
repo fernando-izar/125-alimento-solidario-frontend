@@ -23,6 +23,7 @@ interface IDonorContextProviderProps {
 
 interface IDonorContextData {
   allDataDonations: IDonation[];
+  setAllDataDonations: React.Dispatch<React.SetStateAction<IDonation[]>>;
   newSearch: string;
   setNewSearch: React.Dispatch<React.SetStateAction<string>>;
   setSearched: React.Dispatch<React.SetStateAction<string>>;
@@ -57,9 +58,12 @@ export const DonorContextProvider = ({
     try {
       api.defaults.headers.common.authorization = `Bearer ${token}`;
 
-      await api.patch(`donations/${id}`, { food, quantity });
+      const newDonation = await api.patch(`donations/${id}`, {
+        food,
+        quantity,
+      });
 
-      const newDonation = await api.get<IDonation>(`donations/${id}`);
+      // const newDonation = await api.get<IDonation>(`donations/${id}`);
       setDonation(newDonation.data);
       toast.success("Doação editada com sucesso!");
     } catch (error) {
@@ -76,7 +80,7 @@ export const DonorContextProvider = ({
 
       await api.delete(`donations/${id}`);
 
-      const result = await api.get<IDonation[]>(`donations?_expand=user`);
+      const result = await api.get<IDonation[]>(`donations/expand`);
 
       setAllDataDonations(result.data);
       toast.success("Doação excluída");
@@ -89,7 +93,7 @@ export const DonorContextProvider = ({
   useEffect(() => {
     const renderSearch = async () => {
       try {
-        const result = await api.get<IDonation[]>(`donations?_expand=user`);
+        const result = await api.get<IDonation[]>(`donations/expand`);
         const filtered = result.data.filter(
           (element) =>
             element.food
@@ -105,7 +109,6 @@ export const DonorContextProvider = ({
               .toLowerCase()
               .includes(searched.toLowerCase().trim())
         );
-
         setAllDataDonations(filtered);
       } catch (error) {
         console.log(error);
@@ -117,7 +120,7 @@ export const DonorContextProvider = ({
   useEffect(() => {
     const loadDonations = async () => {
       try {
-        const result = await api.get<IDonation[]>(`donations?_expand=user`);
+        const result = await api.get<IDonation[]>(`donations/expand`);
         handleSetAllDataDonations(result.data);
       } catch (error) {
         console.log(error);
@@ -130,6 +133,7 @@ export const DonorContextProvider = ({
     <DonorContext.Provider
       value={{
         allDataDonations,
+        setAllDataDonations,
         setNewSearch,
         newSearch,
         setSearched,

@@ -11,6 +11,13 @@ export interface IDonation {
   id: string;
 }
 
+export interface IDonationRequest {
+  food: string;
+  quantity: string;
+  expiration: string;
+  classificationId: string;
+}
+
 // export interface IAllDataDonation {
 //   food: string;
 //   quantity: string;

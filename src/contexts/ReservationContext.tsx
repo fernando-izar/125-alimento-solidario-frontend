@@ -16,6 +16,7 @@ import {
   // IReservationWithUsers,
 } from "../interfaces/reservations.interface";
 import "react-toastify/dist/ReactToastify.css";
+import { DonorContext } from "./DonorContext";
 
 interface IReservationProviderProps {
   children: ReactNode;
@@ -36,11 +37,12 @@ export const ReservationProvider = ({
   // const { user } = useContext(UserContext);
   // const { donation, setDonation } = useContext(DonationContext);
   const { setDonation } = useContext(DonationContext);
+  const { setAllDataDonations } = useContext(DonorContext);
 
   const onClickReserve = async (id: string) => {
     try {
       //update donations -> available to false
-      await api.patch(`donations/${id}`, { available: false });
+      // await api.patch(`donations/${id}`, { available: false });
 
       //get donation and setReservations with this values
       // const { data: dataReservation } = await api.get<IReservation>(
@@ -70,17 +72,22 @@ export const ReservationProvider = ({
 
       setListReservations(reservByUsers);
 
+      const allDonations = await api.get<IDonation[]>(`donations/expand`);
+      setAllDataDonations(allDonations.data);
+
       toast.success("Reservado com sucesso!");
     } catch (error) {
       console.log(error);
       toast.error("Ops! Houve algum erro");
     }
 
-    const newDonation = await api.get<IDonation>(`donations/${id}`);
-    setDonation(newDonation.data);
+    // const newDonation = await api.get<IDonation>(`donations/${id}`);
+    // setDonation(newDonation.data);
   };
 
   useEffect(() => {
+    const token = localStorage.getItem("@userToken");
+    api.defaults.headers.common.authorization = `Bearer ${token}`;
     const loadListReservations = async () => {
       try {
         const { data: reservByUsers } = await api.get<IReservation[]>(

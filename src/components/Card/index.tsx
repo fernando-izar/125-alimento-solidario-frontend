@@ -31,7 +31,7 @@ export const Card = ({
     useContext(DonorContext);
 
   let flagId: boolean;
-  user.id.toString() === localStorage.getItem("@userID")
+  user.id === localStorage.getItem("@userID")
     ? (flagId = false)
     : (flagId = true);
 

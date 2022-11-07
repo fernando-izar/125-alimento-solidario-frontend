@@ -21,7 +21,7 @@ export const CartDonations = () => {
           {allDataDonations?.map(
             (element) =>
               idStorage &&
-              +idStorage === element.user.id && (
+              idStorage === element.user.id && (
                 <CartCard
                   key={element.id}
                   food={element.food}
@@ -45,7 +45,7 @@ export const CartDonations = () => {
           {listReservations?.map(
             (element) =>
               idStorage &&
-              +idStorage === element.user.id && (
+              idStorage === element.user.id && (
                 <CartCard
                   key={element.id}
                   food={element.donation.food}

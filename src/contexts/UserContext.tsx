@@ -3,7 +3,11 @@ import { ReactNode, createContext, useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import api from "../services/api";
-import { IUser, IRegisterForm } from "../interfaces/users.interface";
+import {
+  IUser,
+  IRegisterForm,
+  IRequestRegisterForm,
+} from "../interfaces/users.interface";
 import {
   ILoginDataProps,
   ILoginDataResponse,
@@ -41,7 +45,7 @@ const UserContextProvider = ({ children }: IUserContextProviderProps) => {
         try {
           api.defaults.headers.common.authorization = `Bearer ${token}`;
 
-          const { data } = await api.get<IUser>(`users/${id}`);
+          const { data } = await api.get<IUser>(`users/profile`);
           // console.log(data);
           setUser(data);
         } catch (error) {
@@ -61,11 +65,11 @@ const UserContextProvider = ({ children }: IUserContextProviderProps) => {
 
   const loginData = (data: ILoginDataProps) => {
     api
-      .post<ILoginDataResponse>("/login", data)
+      .post<ILoginDataResponse>("login", data)
       .then((response) => {
         setUser(response.data.user);
         window.localStorage.clear();
-        window.localStorage.setItem("@userToken", response.data.accessToken);
+        window.localStorage.setItem("@userToken", response.data.token);
         window.localStorage.setItem(
           "@userID",
           response.data.user.id.toString()
@@ -81,10 +85,29 @@ const UserContextProvider = ({ children }: IUserContextProviderProps) => {
   };
 
   const signUp = (data: IRegisterForm) => {
+    console.log("data", data);
     const { passwordConfirmation, ...infoToAPI } = data;
-
+    console.log("infoToApi", infoToAPI);
+    const reqUser: IRequestRegisterForm = {
+      email: infoToAPI.email,
+      password: infoToAPI.password,
+      name: infoToAPI.name,
+      cnpj_cpf: infoToAPI.cnpj_cpf,
+      responsible: infoToAPI.responsible,
+      contact: infoToAPI.contact,
+      type: infoToAPI.type,
+      isAdm: false,
+      address: {
+        address: infoToAPI.address,
+        complement: infoToAPI.complement,
+        city: infoToAPI.city,
+        state: infoToAPI.state,
+        zipCode: "11000000",
+      },
+    };
+    console.log("reqUser", reqUser);
     api
-      .post<IUser>("/users", infoToAPI)
+      .post<IUser>("/users", reqUser)
       .then((response) => {
         toast.success("Cadastro efetuado com sucesso!");
         navigate("/login", { replace: true });
