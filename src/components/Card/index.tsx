@@ -48,10 +48,15 @@ export const Card = ({
     },
   });
 
-  const date = new Date(expiration);
-  const day = date.getDate();
-  const month = date.getMonth() + 1;
-  const year = date.getFullYear();
+  // const date = new Date(expiration);
+  // const day = date.getDate();
+  // const month = date.getMonth() + 1;
+  // const year = date.getFullYear();
+
+  const date = expiration.split("-");
+  const day = date[2];
+  const month = date[1];
+  const year = date[0];
 
   return (
     <FlipCard>

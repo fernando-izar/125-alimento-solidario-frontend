@@ -40,12 +40,10 @@ export const DonationProvider = ({ children }: IDonationProviderProps) => {
     try {
       api.defaults.headers.common.authorization = `Bearer ${token}`;
 
-      console.log("----dataForm-----", dataForm);
       const { data: classification } = await api.get<IClassification>(
         `classifications/name/${dataForm.classification}`
       );
 
-      console.log(classification);
       const data: IDonationRequest = {
         food: dataForm.food,
         quantity: dataForm.quantity,

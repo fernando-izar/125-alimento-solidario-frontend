@@ -41,25 +41,8 @@ export const ReservationProvider = ({
 
   const onClickReserve = async (id: string) => {
     try {
-      //update donations -> available to false
-      // await api.patch(`donations/${id}`, { available: false });
-
-      //get donation and setReservations with this values
-      // const { data: dataReservation } = await api.get<IReservation>(
-      //   `/donations/${id}?_expand=user`
-      // );
-
-      // const { data :dataReservation } = await api.get<IReservation>(
-      //   `/reservations/${id}`)
-
-      // setReservation(dataReservation);
       const token = localStorage.getItem("@userToken");
       api.defaults.headers.common.authorization = `Bearer ${token}`;
-
-      // const data = {
-      //   userId: user?.id,
-      //   donation: dataReservation,
-      // };
 
       const { data: dataReservation } = await api.post<IReservation>(
         `reservations/${id}`
@@ -80,9 +63,6 @@ export const ReservationProvider = ({
       console.log(error);
       toast.error("Ops! Houve algum erro");
     }
-
-    // const newDonation = await api.get<IDonation>(`donations/${id}`);
-    // setDonation(newDonation.data);
   };
 
   useEffect(() => {

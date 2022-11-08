@@ -46,7 +46,6 @@ const UserContextProvider = ({ children }: IUserContextProviderProps) => {
           api.defaults.headers.common.authorization = `Bearer ${token}`;
 
           const { data } = await api.get<IUser>(`users/profile`);
-          // console.log(data);
           setUser(data);
         } catch (error) {
           console.log(error);
@@ -85,9 +84,7 @@ const UserContextProvider = ({ children }: IUserContextProviderProps) => {
   };
 
   const signUp = (data: IRegisterForm) => {
-    console.log("data", data);
     const { passwordConfirmation, ...infoToAPI } = data;
-    console.log("infoToApi", infoToAPI);
     const reqUser: IRequestRegisterForm = {
       email: infoToAPI.email,
       password: infoToAPI.password,
@@ -105,7 +102,6 @@ const UserContextProvider = ({ children }: IUserContextProviderProps) => {
         zipCode: "11000000",
       },
     };
-    console.log("reqUser", reqUser);
     api
       .post<IUser>("/users", reqUser)
       .then((response) => {
@@ -116,8 +112,6 @@ const UserContextProvider = ({ children }: IUserContextProviderProps) => {
         console.error(error);
         toast.error("Erro no cadastro!");
       });
-
-    /* console.log(infoToAPI); */
   };
 
   return (
