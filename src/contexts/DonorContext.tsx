@@ -5,14 +5,12 @@ import {
   useContext,
   useEffect,
 } from "react";
-import { UserContext } from "./UserContext";
+import { IUser, UserContext } from "./UserContext";
 import { DonationContext } from "./DonationContext";
 import api from "../services/api";
-import { IDonation } from "../interfaces/donations.interface";
-import {
-  // IAllDataDonation,
-  IUpdateDonation,
-} from "../interfaces/donations.interface";
+import { render } from "@testing-library/react";
+import { IDonation } from "./DonationContext";
+import { ConstructionOutlined } from "@mui/icons-material";
 
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -21,14 +19,30 @@ interface IDonorContextProviderProps {
   children: ReactNode;
 }
 
+export interface IAllDataDonation {
+  food: string;
+  quantity: string;
+  expiration: string;
+  classification: string;
+  available: boolean;
+  userId: number;
+  id: number;
+  user: IUser;
+}
+
 interface IDonorContextData {
-  allDataDonations: IDonation[];
-  setAllDataDonations: React.Dispatch<React.SetStateAction<IDonation[]>>;
+  allDataDonations: IAllDataDonation[];
   newSearch: string;
   setNewSearch: React.Dispatch<React.SetStateAction<string>>;
   setSearched: React.Dispatch<React.SetStateAction<string>>;
   onSubmitUpdateDonation: (data: IUpdateDonation) => Promise<void>;
-  onClickDeleteDonation: (id: string) => Promise<void>;
+  onClickDeleteDonation: (id: number) => Promise<void>;
+}
+
+export interface IUpdateDonation {
+  food: string;
+  quantity: string;
+  id: number;
 }
 
 export const DonorContext = createContext<IDonorContextData>(
@@ -38,14 +52,16 @@ export const DonorContext = createContext<IDonorContextData>(
 export const DonorContextProvider = ({
   children,
 }: IDonorContextProviderProps) => {
-  const [allDataDonations, setAllDataDonations] = useState<IDonation[]>([]);
+  const [allDataDonations, setAllDataDonations] = useState<IAllDataDonation[]>(
+    []
+  );
   const [newSearch, setNewSearch] = useState("");
   const [searched, setSearched] = useState("");
 
-  const { loading } = useContext(UserContext);
+  const { loading, user } = useContext(UserContext);
   const { donation, setDonation } = useContext(DonationContext);
 
-  const handleSetAllDataDonations = (data: IDonation[]) => {
+  const handleSetAllDataDonations = (data: IAllDataDonation[]) => {
     setAllDataDonations(data);
   };
 
@@ -58,12 +74,9 @@ export const DonorContextProvider = ({
     try {
       api.defaults.headers.common.authorization = `Bearer ${token}`;
 
-      const newDonation = await api.patch(`donations/${id}`, {
-        food,
-        quantity,
-      });
+      await api.patch(`donations/${id}`, { food, quantity });
 
-      // const newDonation = await api.get<IDonation>(`donations/${id}`);
+      const newDonation = await api.get<IDonation>(`donations/${id}`);
       setDonation(newDonation.data);
       toast.success("Doação editada com sucesso!");
     } catch (error) {
@@ -72,7 +85,7 @@ export const DonorContextProvider = ({
     }
   };
 
-  const onClickDeleteDonation = async (id: string) => {
+  const onClickDeleteDonation = async (id: number) => {
     const token = localStorage.getItem("@userToken");
 
     try {
@@ -80,7 +93,9 @@ export const DonorContextProvider = ({
 
       await api.delete(`donations/${id}`);
 
-      const result = await api.get<IDonation[]>(`donations/expand`);
+      const result = await api.get<IAllDataDonation[]>(
+        `donations?_expand=user`
+      );
 
       setAllDataDonations(result.data);
       toast.success("Doação excluída");
@@ -93,22 +108,25 @@ export const DonorContextProvider = ({
   useEffect(() => {
     const renderSearch = async () => {
       try {
-        const result = await api.get<IDonation[]>(`donations/expand`);
+        const result = await api.get<IAllDataDonation[]>(
+          `donations?_expand=user`
+        );
         const filtered = result.data.filter(
           (element) =>
             element.food
               .toLowerCase()
               .includes(searched.toLowerCase().trim()) ||
-            element.user.address.city
+            element.user.city
               .toLowerCase()
               .includes(searched.toLowerCase().trim()) ||
-            element.user.address.state
+            element.user.state
               .toLowerCase()
               .includes(searched.toLowerCase().trim()) ||
-            element.classification.name
+            element.classification
               .toLowerCase()
               .includes(searched.toLowerCase().trim())
         );
+
         setAllDataDonations(filtered);
       } catch (error) {
         console.log(error);
@@ -120,7 +138,9 @@ export const DonorContextProvider = ({
   useEffect(() => {
     const loadDonations = async () => {
       try {
-        const result = await api.get<IDonation[]>(`donations/expand`);
+        const result = await api.get<IAllDataDonation[]>(
+          `donations?_expand=user`
+        );
         handleSetAllDataDonations(result.data);
       } catch (error) {
         console.log(error);
@@ -133,7 +153,6 @@ export const DonorContextProvider = ({
     <DonorContext.Provider
       value={{
         allDataDonations,
-        setAllDataDonations,
         setNewSearch,
         newSearch,
         setSearched,

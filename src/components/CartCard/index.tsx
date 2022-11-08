@@ -1,10 +1,9 @@
 import { useContext } from "react";
-// import { IAllDataDonation } from "../../interfaces/donations.interface";
+import { IAllDataDonation } from "../../contexts/DonorContext";
 import { Container } from "./styles";
 import { DonationContext } from "../../contexts/DonationContext";
 import { UserContext } from "../../contexts/UserContext";
 import reservado from "../../assets/Reservado.png";
-import { IDonation } from "../../interfaces/donations.interface";
 
 export const CartCard = ({
   food,
@@ -12,9 +11,10 @@ export const CartCard = ({
   expiration,
   classification,
   available,
+  userId,
   id,
   user,
-}: IDonation) => {
+}: IAllDataDonation) => {
   const { user: userLogged } = useContext(UserContext);
   const { chooseImg } = useContext(DonationContext);
 
@@ -45,15 +45,12 @@ export const CartCard = ({
               />
             )}
             <figure>
-              <img
-                src={chooseImg(classification.name)}
-                alt={classification.name}
-              />
+              <img src={chooseImg(classification)} alt={classification} />
             </figure>
 
             <div className="front-food">
               <p>{food}</p>
-              <span>{classification.name}</span>
+              <span>{classification}</span>
             </div>
           </div>
 
@@ -65,14 +62,14 @@ export const CartCard = ({
         <div className="back">
           <div className="back-food">
             <p>{food}</p>
-            <span>{classification.name}</span>
+            <span>{classification}</span>
           </div>
 
           <div className="back-address">
             <p>{user.name}</p>
-            <span>{user.address.address}</span>
+            <span>{user.address}</span>
             <span>
-              {user.address.city}/{user.address.state}
+              {user.city}/{user.state}
             </span>
             <span>{user.contact}</span>
           </div>

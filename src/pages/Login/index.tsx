@@ -1,18 +1,20 @@
 import { useContext } from "react";
-import { UserContext } from "../../contexts/UserContext";
-import { ILoginDataProps } from "../../interfaces/login.interface";
+import { ILoginDataProps, UserContext } from "../../contexts/UserContext";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schemaLogin } from "../../validators/schemas";
 
 import { Header } from "../../components/Header";
 
+import { Button } from "@material-ui/core";
 import { AccountCircle, Visibility, VisibilityOff } from "@mui/icons-material";
 import {
   Input,
   InputLabel,
   FormControl,
   IconButton,
+  InputAdornment,
+  OutlinedInput,
   TextField,
   FormHelperText,
 } from "@mui/material";
@@ -87,7 +89,7 @@ export const Login = () => {
                   error={!!errors.email?.message}
                   helperText={errors.email?.message}
                 />
-
+                                
                 <FormControl sx={{ ml: 3, width: "50ch" }} variant="standard">
                   <InputLabel htmlFor="standard-adornment-password">
                     Senha
@@ -118,9 +120,10 @@ export const Login = () => {
                     error={!!errors.password?.message}
                   />
                   <FormHelperText error id="password-error-1">
-                    {errors.password?.message}
+                      {errors.password?.message}
                   </FormHelperText>
                 </FormControl>
+                
               </div>
               <div className="divButtonsLogin">
                 <ButtonLogin type="submit" onClick={() => handleSubmit}>
@@ -153,9 +156,9 @@ export const Login = () => {
                   error={!!errors.email?.message}
                 />
                 <FormHelperText error id="email-error-2">
-                  {errors.email?.message}
+                    {errors.email?.message}
                 </FormHelperText>
-
+                                
                 <FormControl sx={{ ml: 3, width: "35ch" }} variant="standard">
                   <InputLabel htmlFor="standard-adornment-password">
                     Senha
@@ -184,11 +187,11 @@ export const Login = () => {
                     {...register("password")}
                     onChange={handleChange("password")}
                     error={!!errors.password?.message}
-                  />
-                  <FormHelperText error id="password-error-2">
-                    {errors.password?.message}
-                  </FormHelperText>
-                </FormControl>
+                    />
+                    <FormHelperText error id="password-error-2">
+                        {errors.password?.message}
+                    </FormHelperText>
+                  </FormControl>
                 <p>{errors.password?.message}</p>
               </div>
               <div className="divButtonsLogin">
