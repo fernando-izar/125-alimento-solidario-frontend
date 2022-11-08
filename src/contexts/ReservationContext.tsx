@@ -6,15 +6,9 @@ import {
   useEffect,
 } from "react";
 import api from "../services/api";
-import { UserContext } from "./UserContext";
-// import { IUser } from "../interfaces/users.interface";
-import { DonationContext } from "./DonationContext";
 import { IDonation } from "../interfaces/donations.interface";
 import { toast } from "react-toastify";
-import {
-  IReservation,
-  // IReservationWithUsers,
-} from "../interfaces/reservations.interface";
+import { IReservation } from "../interfaces/reservations.interface";
 import "react-toastify/dist/ReactToastify.css";
 import { DonorContext } from "./DonorContext";
 
@@ -34,9 +28,6 @@ export const ReservationProvider = ({
 }: IReservationProviderProps) => {
   const [reservation, setReservation] = useState<IReservation | null>(null);
   const [listReservations, setListReservations] = useState<IReservation[]>([]);
-  // const { user } = useContext(UserContext);
-  // const { donation, setDonation } = useContext(DonationContext);
-  const { setDonation } = useContext(DonationContext);
   const { setAllDataDonations } = useContext(DonorContext);
 
   const onClickReserve = async (id: string) => {

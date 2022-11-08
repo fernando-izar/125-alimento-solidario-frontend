@@ -1,7 +1,6 @@
-import { useState, createContext, ReactNode, useContext } from "react";
+import { useState, createContext, ReactNode } from "react";
 import { SubmitHandler } from "react-hook-form";
 import api from "../services/api";
-import { UserContext } from "./UserContext";
 
 import cereais from "../assets/Cereais2.png";
 import enlatados from "../assets/Enlatados1.png";
@@ -33,7 +32,6 @@ export const DonationContext = createContext<IDonationProviderData>(
 export const DonationProvider = ({ children }: IDonationProviderProps) => {
   const [donation, setDonation] = useState<IDonation | null>(null);
   const [isMakeDonationModal, setIsMakeDonationModal] = useState(false);
-  const { user } = useContext(UserContext);
 
   const onSubmitMakeDonation: SubmitHandler<IDonation> = async (dataForm) => {
     const token = localStorage.getItem("@userToken");

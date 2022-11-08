@@ -42,7 +42,7 @@ export const DonorContextProvider = ({
   const [newSearch, setNewSearch] = useState("");
   const [searched, setSearched] = useState("");
 
-  const { loading, user } = useContext(UserContext);
+  const { loading } = useContext(UserContext);
   const { donation, setDonation } = useContext(DonationContext);
 
   const handleSetAllDataDonations = (data: IDonation[]) => {

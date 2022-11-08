@@ -39,7 +39,6 @@ const UserContextProvider = ({ children }: IUserContextProviderProps) => {
   useEffect(() => {
     const loadUser = async () => {
       const token = localStorage.getItem("@userToken");
-      const id = localStorage.getItem("@userID");
 
       if (token) {
         try {
