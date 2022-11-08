@@ -3,35 +3,15 @@ import { ReactNode, createContext, useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import api from "../services/api";
-
-export interface IUser {
-  email?: string;
-  password?: string;
-  name: string;
-  ["cnpj/cpf"]?: string;
-  address: string;
-  complement: string;
-  city: string;
-  state: string;
-  responsible: string;
-  contact: string;
-  type: string;
-  id: number;
-}
-
-export interface IUserProviderData {
-  user: IUser | null;
-}
-
-export interface ILoginDataProps {
-  email: string;
-  password: string;
-}
-
-export interface ILoginDataResponse {
-  user: IUser;
-  accessToken: string;
-}
+import {
+  IUser,
+  IRegisterForm,
+  IRequestRegisterForm,
+} from "../interfaces/users.interface";
+import {
+  ILoginDataProps,
+  ILoginDataResponse,
+} from "../interfaces/login.interface";
 
 export interface IUserContextProviderProps {
   children: ReactNode;
@@ -47,21 +27,6 @@ export interface IContextProviderProps {
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export interface IRegisterForm {
-  type: boolean;
-  name: string;
-  ["cnpj/cpf"]: string;
-  address: string;
-  complement: string;
-  city: string;
-  state: string;
-  responsible: string;
-  contact: string;
-  email: string;
-  password: string;
-  passwordConfirmation: string;
-}
-
 export const UserContext = createContext<IContextProviderProps>(
   {} as IContextProviderProps
 );
@@ -74,14 +39,12 @@ const UserContextProvider = ({ children }: IUserContextProviderProps) => {
   useEffect(() => {
     const loadUser = async () => {
       const token = localStorage.getItem("@userToken");
-      const id = localStorage.getItem("@userID");
 
       if (token) {
         try {
           api.defaults.headers.common.authorization = `Bearer ${token}`;
 
-          const { data } = await api.get<IUser>(`users/${id}`);
-          // console.log(data);
+          const { data } = await api.get<IUser>(`users/profile`);
           setUser(data);
         } catch (error) {
           console.log(error);
@@ -100,11 +63,11 @@ const UserContextProvider = ({ children }: IUserContextProviderProps) => {
 
   const loginData = (data: ILoginDataProps) => {
     api
-      .post<ILoginDataResponse>("/login", data)
+      .post<ILoginDataResponse>("login", data)
       .then((response) => {
         setUser(response.data.user);
         window.localStorage.clear();
-        window.localStorage.setItem("@userToken", response.data.accessToken);
+        window.localStorage.setItem("@userToken", response.data.token);
         window.localStorage.setItem(
           "@userID",
           response.data.user.id.toString()
@@ -121,9 +84,25 @@ const UserContextProvider = ({ children }: IUserContextProviderProps) => {
 
   const signUp = (data: IRegisterForm) => {
     const { passwordConfirmation, ...infoToAPI } = data;
-
+    const reqUser: IRequestRegisterForm = {
+      email: infoToAPI.email,
+      password: infoToAPI.password,
+      name: infoToAPI.name,
+      cnpj_cpf: infoToAPI.cnpj_cpf,
+      responsible: infoToAPI.responsible,
+      contact: infoToAPI.contact,
+      type: infoToAPI.type,
+      isAdm: false,
+      address: {
+        address: infoToAPI.address,
+        complement: infoToAPI.complement,
+        city: infoToAPI.city,
+        state: infoToAPI.state,
+        zipCode: "11000000",
+      },
+    };
     api
-      .post<IUser>("/users", infoToAPI)
+      .post<IUser>("/users", reqUser)
       .then((response) => {
         toast.success("Cadastro efetuado com sucesso!");
         navigate("/login", { replace: true });
@@ -132,8 +111,6 @@ const UserContextProvider = ({ children }: IUserContextProviderProps) => {
         console.error(error);
         toast.error("Erro no cadastro!");
       });
-
-    /* console.log(infoToAPI); */
   };
 
   return (
