@@ -5,6 +5,7 @@ import { Container } from "./styles";
 
 export const ListCards = () => {
   const { allDataDonations } = useContext(DonorContext);
+  console.log("*******************************", allDataDonations);
 
   return (
     <Container>
