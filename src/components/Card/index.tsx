@@ -1,5 +1,9 @@
 import { useContext } from "react";
-import { DonorContext, IAllDataDonation } from "../../contexts/DonorContext";
+import { DonorContext } from "../../contexts/DonorContext";
+import {
+  // IAllDataDonation,
+  IUpdateDonation,
+} from "../../interfaces/donations.interface";
 import { FlipCard } from "./styles";
 import { DonationContext } from "../../contexts/DonationContext";
 import { UserContext } from "../../contexts/UserContext";
@@ -7,10 +11,9 @@ import { ReservationContext } from "../../contexts/ReservationContext";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schemaBackCard } from "../../validators/schemas";
-import { IUpdateDonation } from "../../contexts/DonorContext";
 import { Button } from "@material-ui/core";
 import { TextField } from "@mui/material";
-import { ConstructionOutlined } from "@mui/icons-material";
+import { IDonation } from "../../interfaces/donations.interface";
 
 export const Card = ({
   food,
@@ -18,10 +21,9 @@ export const Card = ({
   expiration,
   classification,
   available,
-  userId,
   id,
   user,
-}: IAllDataDonation) => {
+}: IDonation) => {
   const { chooseImg } = useContext(DonationContext);
   const { user: currentUser } = useContext(UserContext);
   const { onClickReserve } = useContext(ReservationContext);
@@ -29,7 +31,7 @@ export const Card = ({
     useContext(DonorContext);
 
   let flagId: boolean;
-  userId.toString() === localStorage.getItem("@userID")
+  user.id === localStorage.getItem("@userID")
     ? (flagId = false)
     : (flagId = true);
 
@@ -46,21 +48,26 @@ export const Card = ({
     },
   });
 
-  const date = new Date(expiration);
-  const day = date.getDate();
-  const month = date.getMonth() + 1;
-  const year = date.getFullYear();
+  // const date = new Date(expiration);
+  // const day = date.getDate();
+  // const month = date.getMonth() + 1;
+  // const year = date.getFullYear();
+
+  const date = expiration.split("-");
+  const day = date[2];
+  const month = date[1];
+  const year = date[0];
 
   return (
     <FlipCard>
       <div className="flip-card-inner">
         <div className="flip-card-front">
           {/* Frente do card => igual para doador e donatário */}
-          <img src={chooseImg(classification)} alt={classification} />
+          <img src={chooseImg(classification.name)} alt={classification.name} />
           <div className="flip-card-front__food-information">
             <div>
               <p>{food}</p>
-              <span>{classification}</span>
+              <span>{classification.name}</span>
             </div>
             <div>
               <p>{quantity}</p>
@@ -70,7 +77,7 @@ export const Card = ({
           <div className="flip-card-front__donor-information">
             <p>{user.name}</p>
             <span>
-              {user.city}/{user.state}
+              {user.address.city}/{user.address.state}
             </span>
           </div>
         </div>
@@ -82,7 +89,7 @@ export const Card = ({
                 <div className="flip-card-back__information--header">
                   <div className="flip-card-back__information--food">
                     <p>{food}</p>
-                    <span>{classification}</span>
+                    <span>{classification.name}</span>
                   </div>
 
                   <div className="flip-card-back__information--quantity">
@@ -93,9 +100,9 @@ export const Card = ({
 
                 <div className="flip-card-back__information--donor-data">
                   <p>{user.name}</p>
-                  <span>{`${user.address}, ${user.complement}`}</span>
+                  <span>{`${user.address}, ${user.address.complement}`}</span>
                   <span>
-                    {user.city}/{user.state}
+                    {user.address.city}/{user.address.state}
                   </span>
                   <span>{user.contact}</span>
                 </div>
@@ -109,7 +116,7 @@ export const Card = ({
                 variant="contained"
                 color="primary"
                 size="small"
-                onClick={() => onClickReserve(id)}
+                onClick={() => onClickReserve(id.toString())}
               >
                 Reservar Alimento
               </Button>
@@ -130,7 +137,7 @@ export const Card = ({
                     disabled={flagId}
                   />
 
-                  <span>{classification}</span>
+                  <span>{classification.name}</span>
                 </div>
 
                 <div className="form-edit-donation__expiration">
