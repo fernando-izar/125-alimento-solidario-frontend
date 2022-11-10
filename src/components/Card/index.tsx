@@ -100,7 +100,7 @@ export const Card = ({
 
                 <div className="flip-card-back__information--donor-data">
                   <p>{user.name}</p>
-                  <span>{`${user.address}, ${user.address.complement}`}</span>
+                  <span>{`${user.address.address}, ${user.address.complement}`}</span>
                   <span>
                     {user.address.city}/{user.address.state}
                   </span>
