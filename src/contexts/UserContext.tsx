@@ -44,8 +44,8 @@ const UserContextProvider = ({ children }: IUserContextProviderProps) => {
         try {
           api.defaults.headers.common.authorization = `Bearer ${token}`;
 
-          const { data } = await api.get<IUser>(`users/profile`);
-          setUser(data);
+          const { data } = await api.get<IUser[]>(`users/profile/`);
+          setUser(data[0]);
         } catch (error) {
           console.log(error);
         }
@@ -63,7 +63,7 @@ const UserContextProvider = ({ children }: IUserContextProviderProps) => {
 
   const loginData = (data: ILoginDataProps) => {
     api
-      .post<ILoginDataResponse>("login", data)
+      .post<ILoginDataResponse>("login/", data)
       .then((response) => {
         setUser(response.data.user);
         window.localStorage.clear();
@@ -102,7 +102,7 @@ const UserContextProvider = ({ children }: IUserContextProviderProps) => {
       },
     };
     api
-      .post<IUser>("/users", reqUser)
+      .post<IUser>("/users/", reqUser)
       .then((response) => {
         toast.success("Cadastro efetuado com sucesso!");
         navigate("/login", { replace: true });

@@ -58,7 +58,7 @@ export const DonorContextProvider = ({
     try {
       api.defaults.headers.common.authorization = `Bearer ${token}`;
 
-      const newDonation = await api.patch(`donations/${id}`, {
+      const newDonation = await api.patch(`donations/${id}/`, {
         food,
         quantity,
       });
@@ -78,9 +78,10 @@ export const DonorContextProvider = ({
     try {
       api.defaults.headers.common.authorization = `Bearer ${token}`;
 
-      await api.delete(`donations/${id}`);
+      await api.delete(`donations/${id}/`);
 
-      const result = await api.get<IDonation[]>(`donations/expand`);
+      // const result = await api.get<IDonation[]>(`donations/expand`);
+      const result = await api.get<IDonation[]>(`donations/`);
 
       setAllDataDonations(result.data);
       toast.success("Doação excluída");
@@ -93,7 +94,9 @@ export const DonorContextProvider = ({
   useEffect(() => {
     const renderSearch = async () => {
       try {
-        const result = await api.get<IDonation[]>(`donations/expand`);
+        // const result = await api.get<IDonation[]>(`donations/expand`);
+        const result = await api.get<IDonation[]>(`donations/`);
+
         const filtered = result.data.filter(
           (element) =>
             element.food
@@ -120,7 +123,9 @@ export const DonorContextProvider = ({
   useEffect(() => {
     const loadDonations = async () => {
       try {
-        const result = await api.get<IDonation[]>(`donations/expand`);
+        // const result = await api.get<IDonation[]>(`donations/expand`);
+        const result = await api.get<IDonation[]>(`donations/`);
+
         handleSetAllDataDonations(result.data);
       } catch (error) {
         console.log(error);

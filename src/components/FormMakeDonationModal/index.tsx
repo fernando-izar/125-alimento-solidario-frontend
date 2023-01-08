@@ -56,39 +56,6 @@ export const FormMakeDonationModal = () => {
           helperText={errors.quantity?.message}
         />
 
-        {/* <TextField
-          {...register("expiration")}
-          label="Qual a validade do produto? (DD/MM/AAAA)"
-          variant="standard"
-          color="warning"
-          type="text"
-        />
-        <p>{errors.expiration?.message}</p> */}
-
-        {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DatePicker
-            disablePast
-            label="Qual a validade do produto?"
-            inputFormat="DD/MM/YYYY"
-            onChange={(value) => {
-              setValue(value);
-              console.log(value);
-            }}
-            value={value}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                variant="standard"
-                color="warning"
-                type="date"
-                // InputLabelProps={{ shrink: true }}
-                {...register("expiration")}
-              />
-            )}
-          />
-          <p>{errors.expiration?.message}</p>
-        </LocalizationProvider> */}
-
         <Controller
           name="expiration"
           // defaultValue={dateString}

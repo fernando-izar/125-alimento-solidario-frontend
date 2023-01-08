@@ -39,18 +39,30 @@ export const DonationProvider = ({ children }: IDonationProviderProps) => {
       api.defaults.headers.common.authorization = `Bearer ${token}`;
 
       const { data: classification } = await api.get<IClassification>(
-        `classifications/name/${dataForm.classification}`
+        `classifications/name/${dataForm.classification}/`
       );
+
+      const expirationDateFormated = [];
+      const expirationDate = dataForm.expiration
+        .toLocaleString()
+        .substring(0, 10)
+        .split("/");
+
+      expirationDateFormated.push(expirationDate[2]);
+      expirationDateFormated.push(expirationDate[0]);
+      expirationDateFormated.push(expirationDate[1]);
+
+      const expirationDateFormatedString = expirationDateFormated.join("-");
 
       const data: IDonationRequest = {
         food: dataForm.food,
         quantity: dataForm.quantity,
-        expiration: dataForm.expiration,
+        expiration: expirationDateFormatedString,
         classification: classification.id,
       };
 
       const { data: responseData } = await api.post<IDonation>(
-        "donations",
+        "donations/",
         data
       );
       setDonation(responseData);
