@@ -36,17 +36,19 @@ export const ReservationProvider = ({
       api.defaults.headers.common.authorization = `Bearer ${token}`;
 
       const { data: dataReservation } = await api.post<IReservation>(
-        `reservations/${id}`
+        `reservations/donations/${id}/`
       );
       setReservation(dataReservation);
 
       const { data: reservByUsers } = await api.get<IReservation[]>(
-        `reservations/user`
+        `reservations/user/`
       );
 
       setListReservations(reservByUsers);
 
-      const allDonations = await api.get<IDonation[]>(`donations/expand`);
+      // const allDonations = await api.get<IDonation[]>(`donations/expand`);
+      const allDonations = await api.get<IDonation[]>(`donations/`);
+
       setAllDataDonations(allDonations.data);
 
       toast.success("Reservado com sucesso!");
@@ -62,7 +64,7 @@ export const ReservationProvider = ({
     const loadListReservations = async () => {
       try {
         const { data: reservByUsers } = await api.get<IReservation[]>(
-          `reservations/user`
+          `reservations/user/`
         );
         setListReservations(reservByUsers);
       } catch (error) {

@@ -2,7 +2,6 @@ import { CartDonations } from "../../components/CartDonations";
 import { Footer } from "../../components/Footer";
 
 import { ListCards } from "../../components/ListCards";
-import { SearchBox } from "../../components/SearchBox";
 import { Container } from "./styles";
 import { Header } from "../../components/Header";
 import { DonationContext } from "../../contexts/DonationContext";
@@ -30,7 +29,6 @@ export const Home = () => {
           <FormMakeDonationModal />
         </MakeDonationModal>
       )}
-      {/* //>>>>>>> 78685d9d380118bc642ec00455ce6a63b54b77b7 */}
     </Container>
   );
 };
