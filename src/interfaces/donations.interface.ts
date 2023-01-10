@@ -15,7 +15,7 @@ export interface IDonationRequest {
   food: string;
   quantity: string;
   expiration: string;
-  classification: string;
+  classification_id: string;
 }
 
 // export interface IAllDataDonation {

@@ -58,7 +58,7 @@ export const DonationProvider = ({ children }: IDonationProviderProps) => {
         food: dataForm.food,
         quantity: dataForm.quantity,
         expiration: expirationDateFormatedString,
-        classification: classification.id,
+        classification_id: classification.id,
       };
 
       const { data: responseData } = await api.post<IDonation>(
